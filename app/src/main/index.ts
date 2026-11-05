@@ -1,6 +1,5 @@
 // Processo main do Just Say.
 import { join } from 'node:path'
-import { homedir } from 'node:os'
 import { app, clipboard, ClipboardItem, ipcMain, Menu, nativeImage, nativeTheme, powerMonitor, session, shell, Tray } from 'electron'
 import { IPC, type KeyboardSnapshot, type MachineStateReport } from '../shared/ipc'
 import {
@@ -91,12 +90,18 @@ function applyLoginItem(): void {
     app.setLoginItemSettings({ openAtLogin, args: [SILENT_LAUNCH_FLAG] })
     return
   }
-  // Da pasta do projeto (D81): registra o "Just Say.exe" (D74) com a pasta do app, igual ao
-  // atalho da Área de Trabalho. Só quando aberto por ele: no `npm run dev` (electron.exe), o
-  // registro apontaria para o Electron do node_modules.
-  const exe = join(homedir(), '.just-say', 'runtime', 'Just Say.exe')
-  if (process.execPath.toLowerCase() !== exe.toLowerCase()) return
-  app.setLoginItemSettings({ openAtLogin, name: 'Just Say', path: exe, args: [app.getAppPath(), SILENT_LAUNCH_FLAG] })
+  // Da pasta do projeto (D81, D96): registra o executável que abriu o app, com a pasta do app.
+  // Vale para o "Just Say.exe" do atalho da Área de Trabalho (D74) e para o electron.exe do
+  // "Abrir Just Say.cmd". No `npm run dev` não: lá o app depende do servidor do Vite, que
+  // não estaria rodando no login. O nome do registro é o do app, então um perfil de teste
+  // (JUST_SAY_PROFILE) não mexe no registro do app principal.
+  if (process.env.ELECTRON_RENDERER_URL) return
+  app.setLoginItemSettings({
+    openAtLogin,
+    name: app.getName(),
+    path: process.execPath,
+    args: [app.getAppPath(), SILENT_LAUNCH_FLAG],
+  })
 }
 
 function startKeyboard(): void {

@@ -2,6 +2,10 @@
 
 O que mudou em cada versão do Just Say. A numeração segue `MAIOR.MENOR.CORREÇÃO`: correções sobem o último número, novidades o do meio. Enquanto o primeiro número for `0`, o app ainda está em evolução rápida.
 
+## v0.1.1 — 2026-11-05
+
+- **Abrir com o Windows funciona para quem instala pelo GitHub.** Antes, a opção ficava ligada na tela, mas só era registrada no Windows quando o app abria por um atalho específico. Agora o app registra o próprio executável e a pasta dele na primeira abertura pelo `Abrir Just Say.cmd` (D96).
+
 ## v0.1.0 — 2026-11-04
 
 Primeira versão pública.

@@ -1111,3 +1111,9 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Testado de ponta a ponta:**
   - o servidor sem chave → recebe a chave → um ditado real sai limpo → a chave é removida;
   - sem o token local, a rota recusa (401).
+
+### D96. Abrir com o Windows também para quem instala pelo GitHub
+- **Problema.** O registro de inicialização só era gravado quando o app abria pelo `Just Say.exe` do atalho da Área de Trabalho (D74). Quem instala pelo `Instalar.cmd` abre pelo `Abrir Just Say.cmd`, que usa o `electron.exe` do `node_modules`; aí a opção "Abrir com o Windows" ficava ligada na tela, mas nada era registrado.
+- **Correção** (`applyLoginItem`, `src/main/index.ts`): registra o executável que abriu o app (`process.execPath`) com a pasta do app e `--system-startup-silent-launch`. Fica de fora só o `npm run dev`, que depende do servidor do Vite.
+- **Nome do registro** = nome do app (`app.getName()`). Um perfil de teste (`JUST_SAY_PROFILE`, D95) grava "Just Say (perfil)" e não mexe no registro do app principal.
+- **Se a pasta mudar** (atualização numa pasta nova), o registro se corrige na primeira abertura pela pasta nova.
