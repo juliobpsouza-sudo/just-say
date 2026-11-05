@@ -1,4 +1,12 @@
-# Just Say
+<p align="center">
+  <img src="Logo/just-say-logo-256.png" alt="Logo do Just Say" width="128" height="128">
+</p>
+
+<h1 align="center">Just Say</h1>
+
+<p align="center">
+  <a href="../../releases/latest"><b>Baixar a versão mais nova</b></a>
+</p>
 
 Ditado por voz para Windows: você toca um atalho, fala, e o texto entra limpo e pontuado no campo onde o cursor está, em qualquer programa. Também responde perguntas (Ask Anything), traduz enquanto você fala e anota no Notion.
 
