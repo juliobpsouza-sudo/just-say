@@ -1,0 +1,5 @@
+# Versões fixas e com pelo menos 2 semanas de publicadas (checagem de segurança, D94).
+faster-whisper==1.2.1
+ctranslate2==4.8.3
+nvidia-cublas-cu12==12.9.2.10
+nvidia-cudnn-cu12==9.27.0.42

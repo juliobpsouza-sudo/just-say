@@ -1,0 +1,22 @@
+# Segunda barreira (os .gitignore de app/ e server/ também valem). Nada disto pode subir:
+# chaves, dados pessoais, gravações e modelos de IA.
+node_modules/
+out/
+dist/
+.env
+.env.*
+!.env.example
+server/data/
+*.db
+*.db-wal
+*.db-shm
+*.log
+api-keys.json
+Recordings/
+*.wav
+*.gguf
+*.zip
+.venv/
+__pycache__/
+.claude/
+runtime/

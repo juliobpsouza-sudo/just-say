@@ -1,0 +1,126 @@
+:root {
+  --pill-bg: rgba(18, 18, 26, 0.92);
+  --pill-fg: #f4f4f8;
+  --pill-muted: #a7a7b8;
+  --live: #8b7cff;
+  --busy: #4fc3b4;
+  --warn: #f2b24c;
+  --bad: #f2647a;
+  font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+}
+
+.stage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+}
+
+.alert {
+  max-width: 330px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  font-size: 12.5px;
+  line-height: 1.35;
+  text-align: center;
+  border: 1px solid rgba(242, 178, 76, 0.5);
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  padding: 0 16px 0 12px;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  font-size: 13px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  --accent: var(--busy);
+}
+.pill.live { --accent: var(--live); }
+.pill.warn { --accent: var(--warn); }
+.pill.bad { --accent: var(--bad); }
+
+.indicator { display: inline-flex; width: 20px; justify-content: center; }
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.wave { display: inline-flex; align-items: center; gap: 2px; height: 16px; }
+.wave i {
+  display: block;
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent);
+  animation: wave 0.9s ease-in-out infinite;
+}
+.wave i:nth-child(2) { animation-delay: 0.15s; }
+.wave i:nth-child(3) { animation-delay: 0.3s; }
+.wave i:nth-child(4) { animation-delay: 0.45s; }
+
+.label { white-space: nowrap; max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+
+.clock { color: var(--pill-muted); font-variant-numeric: tabular-nums; font-size: 12px; }
+.clock.countdown { color: var(--warn); }
+
+@keyframes pulse { 50% { opacity: 0.35; } }
+@keyframes wave { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .dot, .wave i { animation: none; }
+}
+
+.alert.notice { border-color: rgba(139, 124, 255, 0.55); }
+
+/* Fase 6: chip do idioma de destino (Tradução) e da seleção (Ask Anything) */
+.chip {
+  font: inherit;
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--pill-fg);
+  cursor: default;
+}
+.chip.switchable { cursor: pointer; border-color: rgba(139, 124, 255, 0.6); }
+.chip.switchable:hover { background: rgba(139, 124, 255, 0.25); }
+.chip.muted { color: var(--pill-muted); }
+
+/* Fase 7: botão dentro do aviso (Desfazer, Não mostrar mais) */
+.notice-action {
+  font: inherit;
+  font-size: 12px;
+  margin-left: 8px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 124, 255, 0.6);
+  background: rgba(139, 124, 255, 0.18);
+  color: var(--pill-fg);
+  cursor: pointer;
+}
+.notice-action:hover { background: rgba(139, 124, 255, 0.35); }

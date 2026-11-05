@@ -1,0 +1,83 @@
+# Just Say
+
+Ditado por voz para Windows: você toca um atalho, fala, e o texto entra limpo e pontuado no campo onde o cursor está, em qualquer programa. Também responde perguntas (Ask Anything), traduz enquanto você fala e anota no Notion.
+
+- **Transcrição e limpeza:** Groq (plano gratuito), com a chave de cada pessoa.
+- **Sem internet:** reserva opcional na placa de vídeo (Whisper + Qwen3.5 no llama.cpp), ver `server/local-whisper/LEIA-ME.md`.
+
+## Como rodar (Windows 10/11)
+
+1. Baixe a versão mais nova em **[Releases](../../releases/latest)** (o arquivo `Source code (zip)`) e extraia numa pasta sua, por exemplo `Documentos\just-say`.
+2. Clique duas vezes em **`Instalar.cmd`** (uma vez só; leva alguns minutos).
+3. Clique duas vezes em **`Abrir Just Say.cmd`**. O app fica no ícone ao lado do relógio.
+
+Não precisa instalar o Node.js antes: se o PC não tiver o Node 22 ou mais novo, o `Instalar.cmd` baixa um Node portátil do nodejs.org, confere a impressão digital (SHA-256) e o guarda em `runtime\node`, dentro da pasta. Não pede administrador e não mexe no resto do PC; para remover, é só apagar a pasta.
+
+O app sobe o servidor local sozinho (`server/`, porta 8787, só aceita pedidos do próprio PC).
+
+## Versões e atualização
+
+Cada versão tem um número (`v0.1.0`, `v0.2.0`…) e uma nota do que mudou, em [Releases](../../releases) e no [CHANGELOG](CHANGELOG.md). O app não se atualiza sozinho. Para atualizar:
+
+1. Feche o Just Say pelo ícone ao lado do relógio (**Sair**).
+2. Baixe e extraia a versão nova numa pasta nova.
+3. Rode o **`Instalar.cmd`** dela e abra pelo **`Abrir Just Say.cmd`**. A pasta antiga pode ser apagada.
+
+As configurações, a chave do Groq, o dicionário e o histórico ficam em `%APPDATA%\Just Say`, fora da pasta do app, então continuam lá depois de atualizar.
+
+Os `.cmd` usam o Prompt de Comando de propósito: num Windows novo, o PowerShell bloqueia o `npm` ("a execução de scripts foi desabilitada"). Quem preferir o terminal:
+
+```bat
+cd server && npm ci && cd ..\app && npm ci && npm run build && npm run start
+```
+
+## A chave do Groq
+
+Na primeira abertura, o passo a passo pede a sua chave:
+
+1. Entre em [console.groq.com/keys](https://console.groq.com/keys) (dá para usar a conta do Google).
+2. Clique em **Create API Key** e copie a chave (`gsk_…`).
+3. Cole no app e clique em **Guardar**.
+
+A chave fica guardada criptografada no seu PC (pela sua conta do Windows) e dá para trocar em **Configurações → Chave do Groq**. Quem preferir pode usar o arquivo `server/.env` (modelo em `server/.env.example`).
+
+## Pastas
+
+- `app/`: o aplicativo (Electron + React). As DLLs nativas prontas ficam em `app/resources/native/`; o código delas está em `app/native/`.
+- `server/`: o servidor local (Node + Fastify) que fala com o Groq, o Notion e a IA local.
+- `app/DECISOES.md`: o porquê de cada escolha do projeto.
+
+## As DLLs nativas
+
+O app precisa de algumas coisas do Windows que o Node/Electron não alcança sozinho. Elas ficam em 4 DLLs pequenas, escritas em C++ e carregadas pelo app (via koffi). As prontas estão em `app/resources/native/`, para ninguém precisar do Visual Studio; o código-fonte completo está em `app/native/`.
+
+| DLL | O que faz |
+| --- | --- |
+| `KeyboardHelper.dll` | Ouve o teclado e o mouse do Windows inteiro para reconhecer o seu atalho (ex.: AltGr) em qualquer programa. Só repassa ao app quais teclas estão apertadas; não guarda nem envia o que você digita. Engole apenas as teclas do atalho reconhecido. |
+| `InputHelper.dll` | Cola o texto onde está o cursor: guarda o que havia no clipboard, coloca o texto, aperta Ctrl+V e devolve o clipboard como estava. Também lê o texto selecionado (para o Ask Anything e a tradução). |
+| `ContextHelper.dll` | Lê, pela acessibilidade do Windows (UI Automation), o app em foco, o endereço do site e o texto ao redor do cursor. Isso ajuda a IA a acertar nomes e o tom. Apps de senha, conversas privadas e terminais ficam de fora (ver `app/src/shared/contextLists.ts`). |
+| `UtilHelper.dll` | Áudio e aparelho: silencia os outros programas enquanto você fala (e devolve o som depois), lista os microfones, sabe se a tampa do notebook está fechada e gera um identificador local do PC. |
+
+Tudo isso roda só no seu PC. O que sai dele é o áudio e o contexto do ditado, para o Groq, com a sua chave.
+
+**Antivírus.** Um programa que ouve o teclado do sistema inteiro se parece, para alguns antivírus, com um keylogger. Se o seu acusar a `KeyboardHelper.dll`, confira o código em `app/native/KeyboardHelper/` ou compile a sua própria (abaixo).
+
+**Compilar você mesmo.** Precisa do Visual Studio Build Tools com "Desenvolvimento para desktop com C++". Depois:
+
+```powershell
+cd app
+npm run native
+```
+
+O script compila `app/native/` com CMake + MSVC e copia as DLLs para `app/resources/native/`, por cima das prontas.
+
+## Testes
+
+```powershell
+cd server; npm test
+cd app;    npm test
+```
+
+## Licença
+
+[MIT](LICENSE): pode usar, copiar, modificar e distribuir, mantendo o aviso de copyright. O software vem "como está", sem garantia.
