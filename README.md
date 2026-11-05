@@ -10,8 +10,37 @@
 
 Ditado por voz para Windows: você toca um atalho, fala, e o texto entra limpo e pontuado no campo onde o cursor está, em qualquer programa. Também responde perguntas (Ask Anything), traduz enquanto você fala e anota no Notion.
 
-- **Transcrição e limpeza:** Groq (plano gratuito), com a chave de cada pessoa.
-- **Sem internet:** reserva opcional na placa de vídeo (Whisper + Qwen3.5 no llama.cpp), ver `server/local-whisper/LEIA-ME.md`.
+## O que ele faz
+
+### 🎙️ Ditado com reescrita inteligente
+Toque **AltGr**, fale do seu jeito e toque de novo. O texto entra no campo onde está o cursor, em qualquer programa: WhatsApp, Gmail, Word, Notion, VS Code…
+
+E ele não só transcreve, ele **reescreve**:
+- tira os "éé", "tipo", "né" e as repetições;
+- põe pontuação e letra maiúscula onde precisa;
+- entende quando você se corrige no meio: *"amanhã às três, não, às quatro"* vira **"Amanhã às quatro."**;
+- lê o que está na tela para acertar nomes e o tom da conversa.
+
+### 💬 Ask Anything: pergunte ou peça qualquer coisa
+Toque **AltGr + Espaço** e fale um pedido. O app decide sozinho o que fazer:
+- **Escrever por você:** *"escreve um e-mail pedindo o orçamento"* → o e-mail pronto é colado no campo.
+- **Editar o que está selecionado:** selecione um texto e diga *"organiza isso em tópicos"* ou *"deixa mais formal"*.
+- **Responder:** *"o que é isso?"* sobre algo na tela → a resposta aparece num cartão, pronta para copiar.
+- **Pesquisar na web:** *"qual a cotação do dólar hoje?"* → resposta com as fontes, sem abrir o navegador.
+- **Anotar no Notion:** *"anota esse vídeo pra ver mais tarde"* → vira um item na sua lista.
+
+### 🌎 Tradução enquanto você fala
+Toque **AltGr + Shift direito** e fale em português: o texto sai direto em inglês, espanhol ou outro idioma. Você escolhe até 3 idiomas de destino, entre 24 opções.
+
+### ✨ E mais
+- **Aprende com você:** se você corrige um nome depois de colar, ele entra no seu dicionário. O app também pega o seu jeito de escrever.
+- **Histórico:** tudo o que você ditou fica salvo, com busca e botão de copiar. Dá até para refazer um ditado a partir do áudio.
+- **Silencia o som de fundo** enquanto você fala (dá para desligar).
+- **Privacidade:** apps de senha, conversas privadas e terminais nunca têm o texto lido. Tudo fica no seu PC, com a sua própria chave do Groq.
+- **Funciona sem internet (opcional):** com uma placa de vídeo NVIDIA, a transcrição e a limpeza rodam no seu PC (Whisper + Qwen3.5 no llama.cpp; ver `server/local-whisper/LEIA-ME.md`).
+- **Grátis:** usa o plano gratuito do Groq.
+
+Os atalhos acima são os padrões; dá para trocar em **Configurações**.
 
 ## Como rodar (Windows 10/11)
 
