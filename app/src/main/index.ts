@@ -141,7 +141,7 @@ function updateTray(): void {
   tray.setContextMenu(
     Menu.buildFromTemplate([
       { label: `Ditado: ${comboLabel(shortcuts.dictation)}`, enabled: false },
-      { label: `Ask Anything: ${comboLabel(shortcuts.askAnything)}`, enabled: false },
+      { label: `Just Ask: ${comboLabel(shortcuts.askAnything)}`, enabled: false },
       { label: `Tradução: ${comboLabel(shortcuts.translation)}`, enabled: false },
       { label: keyboardLine, enabled: false },
       { label: `Uso gratuito: ${usageLine}`, enabled: false },
@@ -328,7 +328,7 @@ function registerIpc(): void {
   )
   ipcMain.handle(IPC.getSelectedText, () => insertion.getSelectedText())
 
-  // ---------- Ask Anything: cartão de resposta e links ----------
+  // ---------- Just Ask: cartão de resposta e links ----------
   ipcMain.handle(IPC.answerCardShow, (_e, payload: unknown) => {
     const card = toAnswerCardPayload(payload)
     if (card) showAnswerCard(card)
@@ -390,7 +390,7 @@ function registerIpc(): void {
   ipcMain.handle(IPC.lastVoiceFlowGet, () => lastVoiceFlow())
   ipcMain.handle(IPC.lastVoiceFlowRetry, async () => {
     const result = afterVoiceFlow(await retryLastVoiceFlow())
-    // Refazer uma pergunta do Ask Anything mostra a resposta de novo no cartão.
+    // Refazer uma pergunta do Just Ask mostra a resposta de novo no cartão.
     if (result.ok && result.data.delivery === 'reply')
       showAnswerCard({
         question: result.data.user_prompt ?? '',

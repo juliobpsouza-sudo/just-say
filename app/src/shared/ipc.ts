@@ -59,7 +59,7 @@ export const IPC = {
   clipboardWriteText: 'clipboard:write-text',
   /** Só em desenvolvimento: mostra o cartão sem colar nada (teste). */
   debugShowCopyCard: 'debug:show-copy-card',
-  // Ask Anything (Fase 6)
+  // Just Ask (Fase 6)
   answerCardShow: 'page:open-interactive-card',
   answerCardData: 'interactive-card:data',
   answerCardGet: 'interactive-card:get-data',

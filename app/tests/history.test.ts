@@ -78,7 +78,7 @@ describe('banco do histórico', () => {
     expect(db.count()).toBe(1)
   })
 
-  it('busca sem acento, por prefixo, no texto e no pedido do Ask Anything', () => {
+  it('busca sem acento, por prefixo, no texto e no pedido do Just Ask', () => {
     const db = newDb()
     save(db, req('a'), ok('Reunião amanhã cedo.'), '2026-10-14T10:00:00.000Z')
     save(db, req('b'), ok('Comprar café para o escritório.'), '2026-10-14T10:01:00.000Z')

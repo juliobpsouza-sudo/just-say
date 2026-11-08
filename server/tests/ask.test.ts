@@ -11,7 +11,7 @@ import {
 import { languageName } from '../src/refine/languages.ts'
 import { askMaxTokens, fieldEditableFrom, todayLabel } from '../src/voiceFlow.ts'
 
-describe('decisão do Ask Anything', () => {
+describe('decisão do Just Ask', () => {
   it('lê colar e responder', () => {
     expect(parseAskDecision('<acao>colar</acao>\n<texto>Prezado João,</texto>', 'x', true)).toMatchObject({
       action: 'colar',
@@ -67,7 +67,7 @@ describe('link externo', () => {
   })
 })
 
-describe('mensagem do Ask Anything', () => {
+describe('mensagem do Just Ask', () => {
   it('põe a seleção e o comando, e marca o campo editável', () => {
     const msg = buildAskUserMessage({
       command: 'deixa mais formal',
@@ -144,7 +144,7 @@ describe('outros', () => {
   })
 })
 
-describe('teto de saída do Ask Anything', () => {
+describe('teto de saída do Just Ask', () => {
   it('sem seleção grande fica em 1000 (cabe no limite do Qwen)', () => {
     expect(askMaxTokens('')).toBe(1000)
     expect(askMaxTokens('x'.repeat(900))).toBe(1000)
@@ -166,7 +166,7 @@ describe('busca com o texto selecionado (D70)', () => {
   })
 })
 
-describe('tradução pelo Ask Anything vai sempre para o cartão (D71)', () => {
+describe('tradução pelo Just Ask vai sempre para o cartão (D71)', () => {
   it('reconhece pedidos de tradução', () => {
     for (const c of ['Traduza essa frase para o inglês.', 'tradução pro espanhol', 'passa isso pro inglês', 'translate this', 'Traduz.', 'converte para o francês'])
       expect(isTranslationRequest(c), c).toBe(true)

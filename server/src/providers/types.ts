@@ -87,7 +87,7 @@ export interface SearchResult {
   queries: string[]
 }
 
-/** Modelo com busca na web embutida (Ask Anything, pergunta sobre algo atual). */
+/** Modelo com busca na web embutida (Just Ask, pergunta sobre algo atual). */
 export interface SearchProvider extends ProviderInfo {
   search(req: SearchRequest): Promise<SearchResult>
 }

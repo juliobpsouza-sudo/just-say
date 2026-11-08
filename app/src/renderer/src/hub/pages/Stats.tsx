@@ -232,7 +232,7 @@ export function Stats() {
           <div className="usage-mid">{n(s.modes.transcript)}</div>
         </div>
         <div>
-          <div className="stat-label">Ask Anything</div>
+          <div className="stat-label">Just Ask</div>
           <div className="usage-mid">{n(s.modes.ask)}</div>
           {s.modes.webSearches > 0 && <div className="muted small">{plural(s.modes.webSearches, 'busca', 'buscas')} na web</div>}
         </div>

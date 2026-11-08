@@ -27,7 +27,7 @@ export const config = {
   voiceFlowDeadlineMs: 18_000,
   sttTimeoutMs: 15_000,
   llmTimeoutMs: 8_000,
-  /** Ask Anything: o cliente espera até 30 s; a resposta pode ser longa e ter busca. */
+  /** Just Ask: o cliente espera até 30 s; a resposta pode ser longa e ter busca. */
   askDeadlineMs: 28_000,
   askLlmTimeoutMs: 15_000,
   searchTimeoutMs: 15_000,

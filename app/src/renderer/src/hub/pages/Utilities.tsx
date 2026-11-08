@@ -50,7 +50,7 @@ const UTILITIES: Utility[] = [
   },
   {
     id: 'ask',
-    title: 'Ask Anything',
+    title: 'Just Ask',
     logo: 'ask',
     shortcut: 'askAnything',
     what: 'Seu assistente por voz: edita o texto selecionado, responde perguntas, busca na internet, abre sites e anota no Notion.',
@@ -87,7 +87,7 @@ const UTILITIES: Utility[] = [
     tips: [
       'Escolha até 3 idiomas de destino em Configurações → Tradução. O primeiro é o padrão.',
       'Com mais de um idioma, clique no idioma que aparece na barra para trocar o destino.',
-      'Quer só ver a tradução, sem colar? Selecione o texto, use o Ask Anything e diga "traduz pro inglês": a tradução vai para o cartão e o seu texto fica intacto.',
+      'Quer só ver a tradução, sem colar? Selecione o texto, use o Just Ask e diga "traduz pro inglês": a tradução vai para o cartão e o seu texto fica intacto.',
     ],
   },
   {
@@ -95,7 +95,7 @@ const UTILITIES: Utility[] = [
     title: 'Anotar no Notion',
     logo: 'notion',
     shortcut: 'askAnything',
-    what: 'Pelo Ask Anything, guarde vídeos, links e ideias nas suas listas do Notion sem sair do que está fazendo.',
+    what: 'Pelo Just Ask, guarde vídeos, links e ideias nas suas listas do Notion sem sair do que está fazendo.',
     tryIt: [
       {
         label: 'Diga',

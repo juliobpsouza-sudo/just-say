@@ -95,7 +95,7 @@ body {
 
 .alert.notice { border-color: rgba(139, 124, 255, 0.55); }
 
-/* Fase 6: chip do idioma de destino (Tradução) e da seleção (Ask Anything) */
+/* Fase 6: chip do idioma de destino (Tradução) e da seleção (Just Ask) */
 .chip {
   font: inherit;
   font-size: 12px;

@@ -36,13 +36,13 @@ const ACTION_LABEL: Record<string, string> = {
   abrir: 'abriu um link',
 }
 
-/** Modo do pedido e, no Ask Anything e na Tradução, o que aconteceu (Fase 6). */
+/** Modo do pedido e, no Just Ask e na Tradução, o que aconteceu (Fase 6). */
 function modeLine(last: LastVoiceFlow): string {
   if (last.mode === 'voice_translation')
     return `Modo: Tradução${last.outputLanguage ? ` → ${languageLabel(last.outputLanguage)}` : ''}`
   if (last.mode === 'voice_command') {
     const parts = [
-      'Modo: Ask Anything',
+      'Modo: Just Ask',
       last.selectedChars > 0 ? `seleção de ${last.selectedChars.toLocaleString('pt-BR')} caracteres` : 'sem seleção',
       last.askAction && ACTION_LABEL[last.askAction],
       last.searchProvider && `busca: ${last.searchProvider}`,

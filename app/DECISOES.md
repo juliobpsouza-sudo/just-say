@@ -62,7 +62,7 @@ Pontos de projeto que precisaram de uma escolha. Cada decisão diz o que escolhi
 
 ### D10. O detector de atalho
 - Uma combinação só casa se o conjunto pressionado for **exatamente** o atalho. Segurar Shift e tocar `RightAlt` não dispara nada.
-- **Atalho maior.** Segurando um atalho, completar outro maior gera `SWITCH_MODE`. Por exemplo, `RightAlt` seguido de `Space` vira Ask Anything, e `RightAlt` seguido de `RightShift` vira tradução. É o único jeito de os atalhos padrão funcionarem, porque o `RightAlt` sozinho já é o ditado e a gravação começa no keydown.
+- **Atalho maior.** Segurando um atalho, completar outro maior gera `SWITCH_MODE`. Por exemplo, `RightAlt` seguido de `Space` vira Just Ask, e `RightAlt` seguido de `RightShift` vira tradução. É o único jeito de os atalhos padrão funcionarem, porque o `RightAlt` sozinho já é o ditado e a gravação começa no keydown.
 - **Tecla errada.** O `WRONG_KEY.DOWN` só é gerado enquanto o atalho está seguro. Depois disso, digitar outras teclas durante a gravação não tem efeito.
 - **Onde:** `src/renderer/src/recording/shortcutDetector.ts`.
 
@@ -72,7 +72,7 @@ Os nomes dos estados estavam definidos, não todas as setas. Adotei:
 | De | Evento | Para |
 |---|---|---|
 | `idle` | `PRIMARY_KEY.DOWN` do ditado | `initializingForTapOrHold` |
-| `idle` | `PRIMARY_KEY.DOWN` do Ask Anything | `initializingForHandsFree` |
+| `idle` | `PRIMARY_KEY.DOWN` do Just Ask | `initializingForHandsFree` |
 | `idle` | `PRIMARY_KEY.DOWN` da tradução | `initializingForTranslation` |
 | `initializing*` | checagens ok | `awaiting_long_press_or_tap` |
 | `initializing*` | falha nas checagens | `error` → `failure` |
@@ -188,7 +188,7 @@ Detalhes:
 - Primeiro por UI Automation (`TextPattern.GetSelection`).
 - Se vier vazio, por cópia simulada, **exceto em terminais**.
 - **A lista de terminais**, incluindo o `pwsh.exe` (o PowerShell 7): `cmd.exe`, `powershell.exe`, `pwsh.exe`, `wt.exe`, `windowsterminal.exe`, `warp.exe` e `mintty.exe`.
-- Já está pronto e exposto por IPC; quem usa é o Ask Anything (Fase 6).
+- Já está pronto e exposto por IPC; quem usa é o Just Ask (Fase 6).
 
 ### D26. O worklet de captura
 - O código do AudioWorklet é carregado por Blob URL. Assim funciona igual em desenvolvimento (http) e no app empacotado (file://).
@@ -228,7 +228,7 @@ Detalhes:
 - **Por que o Claude saiu.** A assinatura do claude.ai não dá acesso à API, e a API da Anthropic é paga à parte.
 - **Decisão.**
   - O refino de ditado sai do **Claude Haiku 5.5** (especificado) e vai para modelos gratuitos do Groq.
-  - O Ask Anything (Fase 6) também vai para modelos gratuitos, em vez do Claude Sonnet 5.5.
+  - O Just Ask (Fase 6) também vai para modelos gratuitos, em vez do Claude Sonnet 5.5.
   - O STT fica no Whisper do Groq, também gratuito.
 - **Volta ao Claude.** A cascata (D34) aceita um provedor pago depois: basta escrever o provedor e ligar na tela de Modelos.
 
@@ -420,7 +420,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **`debug:show-copy-card`:** só existe com o app não empacotado. Mostra o cartão sem colar nada.
 - **`hwnd` nas opções da `ctxCaptureFocus`:** lê uma janela específica em vez da que está em foco. Só para teste.
 
-## Fase 6: Ask Anything, Tradução e cartão de resposta
+## Fase 6: Just Ask, Tradução e cartão de resposta
 
 ### D54. Busca na web gratuita: a ferramenta `browser_search` do Groq
 - **Escolha.** Usamos o modelo `openai/gpt-oss-20b` com a ferramenta `browser_search` do Groq, que funciona no plano gratuito. Foi testado em 14/10/2026: ~3 s por resposta, e as fontes vêm em `executed_tools[].search_results`.
@@ -431,7 +431,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Fontes.** Primeiro as páginas que o modelo abriu, depois os resultados da busca. São no máximo 5, sem repetir e sem a página do próprio buscador.
 - **Marcas de citação.** As marcas `【1†L6-L10】` e uma linha "Fonte:" no fim são tiradas do texto.
 
-### D55. Ask Anything: uma chamada decide o que fazer
+### D55. Just Ask: uma chamada decide o que fazer
 - **Uma chamada só.** Um único pedido ao modelo de refino (cascata normal, sem o degrau "sem refino") devolve a ação e o conteúdo:
   - **colar** → `delivery: replace`. Com seleção, substitui a seleção. Sem seleção, escreve no cursor (ex.: "escreve um e-mail…").
   - **responder** → `delivery: reply`, e abre o cartão de resposta.
@@ -453,7 +453,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 ### D56. Tradução sem o degrau "sem refino"
 - **Por que sem o degrau.** Colar o texto sem traduzir seria um erro silencioso, então a cascata da tradução pula o "sem refino".
 - **Se todos falham,** o servidor devolve `translation_unavailable` junto com a transcrição. O app mostra um erro recuperável e abre o cartão "clique para copiar" com a fala original, sem colar nada.
-- **Idioma da fala.** O STT detecta sozinho, porque a fala da tradução e o pedido do Ask Anything podem vir em qualquer idioma. Só o ditado fixa o idioma escolhido.
+- **Idioma da fala.** O STT detecta sozinho, porque a fala da tradução e o pedido do Just Ask podem vir em qualquer idioma. Só o ditado fixa o idioma escolhido.
 - **Idioma de destino.** Vai em `parameters.output_language`. Se faltar ou for desconhecido, o servidor recusa com `bad_language`.
 
 ### D57. Limite de saída por minuto do Qwen
@@ -462,7 +462,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **O que fazemos:**
   - o 429 com "Request too large" vira `ProviderRequestTooLargeError`;
   - a cascata passa para o próximo modelo **sem bloquear** o Qwen, que continua servindo os próximos pedidos (antes, ele ficava bloqueado por ~86 s);
-  - o Ask Anything pede no máximo 1000 tokens quando não há seleção grande; seleções grandes pedem mais e vão para o `gpt-oss-120b`.
+  - o Just Ask pede no máximo 1000 tokens quando não há seleção grande; seleções grandes pedem mais e vão para o `gpt-oss-120b`.
 - **Log do servidor.** Agora mostra as tentativas que falharam e o motivo.
 
 ### D58. Idiomas de destino
@@ -494,8 +494,8 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - **Verificação antes de instalar:** mantenedores oficiais, nenhum script de instalação nelas nem nas dependências, e `npm audit` sem nada.
   - **Versão do DOMPurify.** A 3.4.17 tinha 2 dias e ficou de fora por precaução.
 
-### D60. Colagem rica no Ask Anything
-- **Formatos.** Toda entrega `replace` do Ask Anything cola com `insertRichText`: "HTML Format", "Markdown Format" e texto puro, e o app de destino escolhe o que entende.
+### D60. Colagem rica no Just Ask
+- **Formatos.** Toda entrega `replace` do Just Ask cola com `insertRichText`: "HTML Format", "Markdown Format" e texto puro, e o app de destino escolhe o que entende.
 - **Texto puro:**
   - tira a marcação;
   - mantém as listas com "-" e "1.";
@@ -568,7 +568,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - **O que manda.** O app manda os últimos 40 textos finais de ditado do histórico, preferindo o texto corrigido pela pessoa.
   - **O perfil.** Um modelo gratuito descreve o estilo em até 6 tópicos (registro, pontuação, abreviações, tamanho das frases, cumprimentos), até 800 caracteres, sem conteúdo nem dados pessoais.
   - **No refino.** O perfil entra no prompt do ditado como `<estilo_pessoal>`, regra 15: ele muda pontuação, maiúsculas e registro, nunca as palavras.
-- **Escopo.** Só no ditado. A tradução e o Ask Anything não usam.
+- **Escopo.** Só no ditado. A tradução e o Just Ask não usam.
 - **Configurações → Aprendizado e histórico:**
   - ligar e desligar (padrão ligado);
   - ver o perfil;
@@ -580,7 +580,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Idiomas do ditado.**
   - Opções: "Detectar automaticamente" ou escolher até 5 idiomas, entre 21.
   - Com um só, o STT fixa o idioma.
-  - A tradução e o Ask Anything continuam com detecção automática.
+  - A tradução e o Just Ask continuam com detecção automática.
 - **Microfone.**
   - Configurações → Áudio lista os microfones, sem as entradas "communications" e virtuais (Mixagem estéreo).
   - **Automático** usa o padrão do Windows. Com a tampa do notebook **fechada** (`deviceIsLidOpen`) e o embutido como padrão, usa o primeiro externo.
@@ -597,7 +597,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   1. o teste do microfone, com medidor;
   2. o atalho, observado sem gravar;
   3. o ditado de treino;
-  4. o Ask Anything.
+  4. o Just Ask.
 - **Ditado de treino.** Usa um contexto fictício fixo, uma conversa da "Marina" sobre uma luminária impressa em 3D. O texto e os nomes são nossos.
   - Ele substitui o app em foco só enquanto a tela de treino está aberta **e** o foco está numa janela do próprio Just Say.
 - **Rever.** Em Configurações → Passo a passo.
@@ -614,7 +614,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - em Configurações → Aparência.
 - **Quando vale.** Na hora, sem reiniciar (testado: o fundo vai de `#F6F6F9` a `#15151C`).
 
-### D70. Ask Anything com texto selecionado em conversas e páginas
+### D70. Just Ask com texto selecionado em conversas e páginas
 - **O problema** (confirmado no histórico): "traduza essa frase", "o que é esse link" e "o que é isso" sobre um trecho selecionado no app do Claude chegavam com a seleção **vazia** (0 caracteres), e a resposta era "Não entendi o pedido".
 - **Causa.** A leitura por UI Automation só olhava o elemento **focado**. Em Chrome, Edge e apps Electron (Claude, Slack…), selecionar um trecho da conversa ou da página deixa o foco na caixa de texto, e a seleção fica no **documento** da página.
 - **Correção na `InputHelper.dll`:**
@@ -625,7 +625,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - **Prazo.** Cada chamada de UI Automation tem 400 ms de limite.
 - **De onde veio a seleção.** O app manda `parameters.selection_source` (`uia_focus`, `uia_document`, `copy` ou `none`).
   - Seleção lida no documento da página conta como **campo não editável**, então o resultado vai para o **cartão** e nunca tenta colar na caixa de texto, que não tem aquela seleção.
-- **Prompt do Ask Anything:**
+- **Prompt do Just Ask:**
   - **Campo não editável:** traduzir, resumir ou explicar a seleção vira "responder" (cartão).
   - **Link na seleção:** "o que é / o que tem / resuma" vira "buscar" com o link, e a busca (`gpt-oss` com `browser_search`) **abre a página**. Testado com um link da Wikipédia: resumo certo, com a fonte.
   - **Pedido sobre "isso" sem seleção:** responde "Não consegui ler o texto selecionado…" em vez de "Não entendi".
@@ -633,7 +633,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Log** (`[seleção]` no log do app): método, número de caracteres, tempo e códigos de erro, **nunca o texto**.
 - **Observado no diagnóstico.** A cópia simulada (Ctrl+C) falhou uma vez com -1 (clipboard ocupado depois da cópia). Ela continua como último recurso, e o log novo mostra quando isso acontece.
 
-### D71. Tradução pelo Ask Anything sempre no cartão
+### D71. Tradução pelo Just Ask sempre no cartão
 - **Pedido.** Selecionou "bom dia" no Bloco de Notas, pediu "traduz pro inglês" e o texto foi trocado por "good morning". A tradução deve ir **100% das vezes** para o cartão, para copiar se precisar, sem perder o original.
 - **Duas camadas:**
   - **Regra no prompt:** pedido de tradução é sempre "responder".
@@ -646,11 +646,11 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Testes:** `tests/ask.test.ts`. Ao vivo: "bom dia" selecionado num campo editável, com "traduza para o inglês", foi para o cartão; "deixa mais formal" continuou colando.
 
 ### D72. Integração com o Notion ("anota esse vídeo pra ver mais tarde")
-- **O que é.** Pelo Ask Anything, anotar vídeos, páginas e ideias numa "pasta" do Notion da pessoa.
+- **O que é.** Pelo Just Ask, anotar vídeos, páginas e ideias numa "pasta" do Notion da pessoa.
 - **API.** A oficial (`api.notion.com/v1`, versão `2026-03-11`, conferida na documentação em 15/10/2026), chamada direto do servidor com `fetch`, sem SDK e sem download.
 - **Conexão.** Integração interna do Notion, com a chave em `server\.env` (`NOTION_TOKEN`). A integração só enxerga as páginas que a pessoa conecta a ela (⋯ → Conexões → Just Say).
 - **Pastas.** São as páginas e bancos de dados (data sources) que a busca da API devolve. Linhas de banco não contam como pasta. A lista fica em cache por 60 s.
-- **Ação nova "anotar" no Ask Anything:**
+- **Ação nova "anotar" no Just Ask:**
   - **O que o modelo devolve:** `<pasta>` (como foi falada), `<titulo>`, `<texto>` e `<link>`.
   - **O que ele recebe a mais:** `<pagina_aberta>` (título e link da página no navegador, só quando a leitura da tela permite) e `<pastas_notion>` (os nomes, no máximo 30).
   - **"Esse vídeo" ou "essa página" sem link na resposta:** o servidor usa o link da página aberta. O título perde o " - YouTube".
@@ -731,15 +731,15 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - gráfico dos últimos 30 dias;
   - a próxima meta de palavras (100, 500, 1.000, 2.500… até 1 milhão);
   - os 5 apps onde mais dita e as palavras por hora do dia;
-  - o uso por modo (ditado, Ask Anything com as buscas na web, tradução) e o tempo falando;
+  - o uso por modo (ditado, Just Ask com as buscas na web, tradução) e o tempo falando;
   - recordes: maior ditado e melhor dia.
 - **Como conta:**
   - **Ditado e tradução:** as palavras do texto entregue.
-  - **Ask Anything:** as palavras do pedido falado, não da resposta, porque quem escreveu a resposta foi a IA.
+  - **Just Ask:** as palavras do pedido falado, não da resposta, porque quem escreveu a resposta foi a IA.
   - **Erros não contam.** Uma palavra é um pedaço entre espaços com ao menos uma letra ou número.
 - **Tempo economizado,** por ditado: o tempo que levaria digitando (palavras ÷ velocidade de digitação) menos o tempo falando, nunca negativo.
   - A velocidade de digitação começa em 40 palavras por minuto, perto da média de quem digita, e a pessoa ajusta na própria página (de 10 a 200).
-  - O Ask Anything não entra na velocidade falando.
+  - O Just Ask não entra na velocidade falando.
 - **Sequência.** Conta os dias seguidos com ao menos um ditado, no fuso do PC. Ela não quebra antes de o dia acabar: sem ditado hoje, conta até ontem.
 - **Dados:** tabela `stats_events` no mesmo `just-say.db` (migração 2), com uma linha por ditado.
   - Guarda só números, a hora e o nome do app, **nunca o texto**.
@@ -784,9 +784,9 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Novos conectores** entram como mais um `ConnectorCard` nesta página.
 
 ### D78. Aba Utilidades (o que o app faz e dicas)
-- **Pedido** (18/10/2026): uma aba que explique brevemente cada função, com dicas de uso (o que o tradutor faz, o que o Ask Anything faz etc.).
+- **Pedido** (18/10/2026): uma aba que explique brevemente cada função, com dicas de uso (o que o tradutor faz, o que o Just Ask faz etc.).
 - **Onde:** `#/utilities`, entre Conectores e Configurações (`src/renderer/src/hub/pages/Utilities.tsx`).
-- **Um cartão por função:** Ditado, Ask Anything, Tradução, Anotar no Notion, Colar a última transcrição, Dicionário e aprendizado, Histórico e estatísticas, Privacidade. Cada cartão tem:
+- **Um cartão por função:** Ditado, Just Ask, Tradução, Anotar no Notion, Colar a última transcrição, Dicionário e aprendizado, Histórico e estatísticas, Privacidade. Cada cartão tem:
   - o que faz, em uma frase;
   - frases para experimentar, quando cabe;
   - as dicas.
@@ -860,7 +860,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - o atalho configurado da pessoa e o modo;
   - a frase para dizer.
 - **"Ver todas as dicas →"** leva à aba Utilidades.
-- **Para acrescentar um uso,** basta mais um item na lista `USES`. Os fluxos foram conferidos nas regras do Ask Anything: editar a seleção cola por cima, escrever sem seleção cola no campo, "o que é isso?" vai para o cartão e assuntos atuais buscam na web.
+- **Para acrescentar um uso,** basta mais um item na lista `USES`. Os fluxos foram conferidos nas regras do Just Ask: editar a seleção cola por cima, escrever sem seleção cola no campo, "o que é isso?" vai para o cartão e assuntos atuais buscam na web.
 
 ### D83. Usos populares mais chamativos
 - **Pedido** (19/10/2026): trocar os ícones genéricos por logos específicos, deixar os cartões menos "clássicos" e esconder o "o que tem que apertar" atrás de uma setinha. A frase para dizer continua à vista.
@@ -882,7 +882,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
   - montar a aba de propaganda, sem mexer nos Usos populares, que ele amou;
   - deixar a Utilidades com "logozinhos mais bonitos, igual você fez ali".
 - **Logos compartilhados** (`src/renderer/src/hub/components/AppLogos.tsx`):
-  - quadradinhos com degradê e desenho branco: ditado, Ask Anything, colar, dicionário, histórico, privacidade, grátis e "qualquer app";
+  - quadradinhos com degradê e desenho branco: ditado, Just Ask, colar, dicionário, histórico, privacidade, grátis e "qualquer app";
   - mais o "N" do Notion e as bandeiras BR→EUA;
   - cada um tem a sua cor em `LOGO_TONE`;
   - os ids dos degradês vêm do `useId`.
@@ -1067,7 +1067,7 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Integração** (servidor):
   - `local:whisper` fica depois dos dois Whisper do Groq, agora ligado;
   - `local:llm` (`providers/localLlm.ts`) fica depois dos três modelos do Groq e antes do "sem refino". Uma configuração salva antiga ganha esse degrau sozinha.
-  - Só o ditado usa o modelo local. Ask Anything, tradução e estilo pessoal pulam (`local: true`).
+  - Só o ditado usa o modelo local. Just Ask, tradução e estilo pessoal pulam (`local: true`).
 - **Liga sob demanda** (`src/localAi.ts`):
   - o servidor sobe o Whisper e o llama.cpp quando um pedido chega neles e desliga depois de 15 min sem uso; com internet, nada fica na placa;
   - um vigia testa uma conexão TCP com `api.groq.com` a cada 30 s; com 2 falhas seguidas, liga o Whisper e depois o modelo;
@@ -1117,3 +1117,8 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Correção** (`applyLoginItem`, `src/main/index.ts`): registra o executável que abriu o app (`process.execPath`) com a pasta do app e `--system-startup-silent-launch`. Fica de fora só o `npm run dev`, que depende do servidor do Vite.
 - **Nome do registro** = nome do app (`app.getName()`). Um perfil de teste (`JUST_SAY_PROFILE`, D95) grava "Just Say (perfil)" e não mexe no registro do app principal.
 - **Se a pasta mudar** (atualização numa pasta nova), o registro se corrige na primeira abertura pela pasta nova.
+
+### D97. "Ask Anything" passa a se chamar "Just Ask"
+- **Pedido** (08/11/2026): um nome próprio, que combine com "Just Say": *Just Say* para ditar, *Just Ask* para pedir.
+- **O que mudou:** todos os textos das telas (barra, bandeja, Hub, Histórico, Estatísticas, passo a passo, Utilitários, Conectores), comentários, testes e documentos.
+- **O que não mudou:** os nomes internos (`askAnything`, `ask_anything`, `voice_command`) e as chaves das configurações. Assim os atalhos e o histórico de quem já usa continuam iguais.

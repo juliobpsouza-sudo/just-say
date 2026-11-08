@@ -40,7 +40,7 @@ export interface WebSource {
   url: string
 }
 
-/** Fontes da busca na web do Ask Anything. */
+/** Fontes da busca na web do Just Ask. */
 export interface WebMetadata {
   query: string
   sources: WebSource[]
@@ -98,7 +98,7 @@ export interface LastVoiceFlow {
   serverMs: number | null
   roundTripMs: number
   error: { code: string; message: string } | null
-  /** Ask Anything e Tradução (Fase 6). */
+  /** Just Ask e Tradução (Fase 6). */
   delivery: Delivery | null
   askAction: AskAction | null
   searchProvider: string | null

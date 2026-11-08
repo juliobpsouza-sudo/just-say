@@ -12,13 +12,13 @@ const api = () => window.justSay
 const MODE_FILTERS: { value: VoiceFlowMode | null; label: string }[] = [
   { value: null, label: 'Tudo' },
   { value: 'voice_transcript', label: 'Ditado' },
-  { value: 'voice_command', label: 'Ask Anything' },
+  { value: 'voice_command', label: 'Just Ask' },
   { value: 'voice_translation', label: 'Tradução' },
 ]
 
 const MODE_BADGE: Record<VoiceFlowMode, string> = {
   voice_transcript: 'Ditado',
-  voice_command: 'Ask Anything',
+  voice_command: 'Just Ask',
   voice_translation: 'Tradução',
 }
 

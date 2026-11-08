@@ -8,7 +8,7 @@ const nf = new Intl.NumberFormat('pt-BR')
 
 const FEATURES: { kind: LogoKind; title: string; text: string }[] = [
   { kind: 'dictation', title: 'Ditado', text: 'Sem "é", "tipo" e "né", com pontuação e no tom do app onde você está.' },
-  { kind: 'ask', title: 'Ask Anything', text: 'Pergunte, peça um e-mail, resuma um texto ou busque na internet.' },
+  { kind: 'ask', title: 'Just Ask', text: 'Pergunte, peça um e-mail, resuma um texto ou busque na internet.' },
   { kind: 'translate', title: 'Tradução', text: 'Fale em português e o texto já entra em inglês.' },
   { kind: 'notion', title: 'Notion', text: 'Guarde vídeos, links e ideias nas suas listas, por voz.' },
   { kind: 'dictionary', title: 'Aprende com você', text: 'Nomes, gírias e o seu jeito de escrever ficam cada vez mais certos.' },

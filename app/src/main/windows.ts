@@ -175,7 +175,7 @@ export function showCopyCard(text: string): void {
   cardTimer = setTimeout(closeCopyCard, CARD_VISIBLE_MS)
 }
 
-// ---------- cartão de resposta do Ask Anything ("reply") ----------
+// ---------- cartão de resposta do Just Ask ("reply") ----------
 // Ao contrário do cartão de copiar, este recebe foco: a pessoa vai ler, rolar e selecionar.
 
 export interface AnswerCardPayload {

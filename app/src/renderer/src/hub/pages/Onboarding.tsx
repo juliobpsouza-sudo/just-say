@@ -1,5 +1,5 @@
 // Passo a passo da primeira abertura: microfone, atalho, um ditado de
-// treino com contexto fictício e o Ask Anything. Dá para pular a qualquer momento.
+// treino com contexto fictício e o Just Ask. Dá para pular a qualquer momento.
 import { useEffect, useRef, useState } from 'react'
 import { IPC, type KeyboardSnapshot } from '../../../../shared/ipc'
 import { ONBOARDING_STEPS, PRACTICE_CHAT, type OnboardingState } from '../../../../shared/onboarding'
@@ -235,7 +235,7 @@ function PracticeStep({ keys, text, onText }: { keys: string[]; text: string; on
 function AskStep({ keys, text, onText }: { keys: string[]; text: string; onText: (t: string) => void }) {
   return (
     <div className="onb-step">
-      <h1>Ask Anything</h1>
+      <h1>Just Ask</h1>
       <p>
         Selecione o texto da caixa, toque <Keys keys={keys} /> e peça uma mudança, como "deixa mais formal" ou "traduz
         para o inglês". Toque de novo para terminar. Sem seleção, dá para perguntar qualquer coisa: a resposta aparece num

@@ -1,9 +1,9 @@
-// Prompts do Ask Anything (modo voice_command) e a leitura da resposta do modelo.
+// Prompts do Just Ask (modo voice_command) e a leitura da resposta do modelo.
 // Escritos do zero para as três entregas: colar, responder no cartão ou abrir um link.
 import { keepTail, truncateMiddle } from './contextBudget.ts'
 import type { DictationContext } from './prompts.ts'
 
-/** Recorte do contexto para o Ask Anything (D55). A seleção é o que mais importa. */
+/** Recorte do contexto para o Just Ask (D55). A seleção é o que mais importa. */
 export const ASK_BUDGET = {
   selectedTokens: 5000,
   visibleTokens: 1500,

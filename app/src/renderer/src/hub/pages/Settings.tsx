@@ -157,7 +157,7 @@ export function Settings() {
         <div className="item">
           <div className="item-text">
             <div className="item-title">Rever o passo a passo</div>
-            <div className="muted small">Microfone, atalho, um ditado de treino e o Ask Anything, em 4 telas.</div>
+            <div className="muted small">Microfone, atalho, um ditado de treino e o Just Ask, em 4 telas.</div>
           </div>
           <button className="secondary" onClick={() => (window.location.hash = '/onboarding')}>
             Abrir

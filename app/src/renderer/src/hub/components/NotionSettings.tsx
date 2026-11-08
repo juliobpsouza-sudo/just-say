@@ -51,7 +51,7 @@ export function NotionSettings() {
       status={status}
     >
       <p className="muted small conn-howto">
-        Com o <b>Ask Anything</b>, diga "anota esse vídeo pra ver mais tarde" ou "anota na pasta Ideias: …". O vídeo ou a
+        Com o <b>Just Ask</b>, diga "anota esse vídeo pra ver mais tarde" ou "anota na pasta Ideias: …". O vídeo ou a
         página aberta vira uma linha (ou um item ☐) na pasta, com o link. A barra mostra <b>Abrir</b> e <b>Desfazer</b>.
       </p>
 

@@ -57,7 +57,7 @@ export interface BarView {
   /** Tradução: idioma de destino ativo e se dá para trocar com um clique. */
   targetLanguage: string | null
   canSwitchLanguage: boolean
-  /** Ask Anything: texto selecionado (lendo, achado com N caracteres ou nenhum). */
+  /** Just Ask: texto selecionado (lendo, achado com N caracteres ou nenhum). */
   selection: { state: 'reading' } | { state: 'found'; chars: number } | { state: 'none' } | null
 }
 
@@ -178,7 +178,7 @@ export function createRecordingController(onView: (view: BarView) => void, actio
   const fullContextBySession = new Map<string, { startedAt: number; promise: Promise<FullContextResult | null> }>()
   const requestsBySession = new Map<string, Pick<VoiceFlowRequest, 'audioContext' | 'audioMetadata' | 'parameters'>>()
   const insertMetaBySession = new Map<string, { textBefore: string; showCopyCard: boolean; trackable: boolean }>()
-  // Ask Anything: a seleção é lida assim que o modo vira ask_anything.
+  // Just Ask: a seleção é lida assim que o modo vira ask_anything.
   const selectionBySession = new Map<string, Promise<{ text: string; method: string }>>()
   const selectionChars = new Map<string, number>()
   // Resposta completa do servidor (entrega, fontes, link), usada na hora de entregar.
@@ -297,7 +297,7 @@ export function createRecordingController(onView: (view: BarView) => void, actio
     return { text }
   }
 
-  /** Entrega do Ask Anything: cola rico, mostra o cartão ou abre o link. */
+  /** Entrega do Just Ask: cola rico, mostra o cartão ou abre o link. */
   function deliverAskAnything(response: VoiceFlowResponse, text: string, showCopyCard: boolean, sessionId: string | null) {
     if (response.delivery === 'external' && response.external_action?.target) {
       const url = response.external_action.target
@@ -334,10 +334,10 @@ export function createRecordingController(onView: (view: BarView) => void, actio
     void api.invoke(IPC.insertRichText, rich.html, rich.text, rich.markdown, { remember: true, showCopyCard, sessionId: sessionId ?? undefined })
   }
 
-  /** `parameters` do pedido: idiomas do ditado, seleção do Ask Anything ou idioma de destino. */
+  /** `parameters` do pedido: idiomas do ditado, seleção do Just Ask ou idioma de destino. */
   async function parametersFor(sessionId: string, mode: RecordingMode): Promise<Record<string, unknown>> {
     if (mode === 'ask_anything') {
-      readSelection(sessionId) // trocou para Ask Anything no último instante
+      readSelection(sessionId) // trocou para Just Ask no último instante
       const selected = (await withTimeout(selectionBySession.get(sessionId)!, 1000)) ?? { text: '', method: 'none' }
       selectionBySession.delete(sessionId)
       // De onde veio a seleção: lida na página (fora do campo) = não dá para substituir (D70).
@@ -496,7 +496,7 @@ export function createRecordingController(onView: (view: BarView) => void, actio
     }
     if (state !== lastState || lastEventType !== 'init') void api.invoke(IPC.machineStateLog, report)
     lastState = state
-    // Ask Anything: lê a seleção logo no começo, enquanto ela ainda está na tela.
+    // Just Ask: lê a seleção logo no começo, enquanto ela ainda está na tela.
     if (ctx.mode === 'ask_anything' && ctx.sessionId && (state.startsWith('initializing') || state === 'awaiting_long_press_or_tap' || isRecordingActive(state)))
       readSelection(ctx.sessionId)
     render()

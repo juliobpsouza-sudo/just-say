@@ -1,4 +1,4 @@
-// Links que o app aceita abrir no navegador (Ask Anything "abrir" e fontes do cartão).
+// Links que o app aceita abrir no navegador (Just Ask "abrir" e fontes do cartão).
 
 /** Só http/https, sem usuário e senha. Devolve a URL normalizada ou null. */
 export function safeExternalUrl(value: unknown): string | null {

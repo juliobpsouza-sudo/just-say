@@ -1,7 +1,7 @@
 // Fluxo de voz: áudio → STT (cascata) → conforme o modo → resposta para o app.
 // - Ditado: refino e cola.
 // - Tradução: limpa e traduz para o idioma de destino.
-// - Ask Anything: decide entre colar, responder (cartão), buscar na web ou abrir um link.
+// - Just Ask: decide entre colar, responder (cartão), buscar na web ou abrir um link.
 // Usado pelo POST /ai/voice_flow e, na Fase 4, pelo WebSocket.
 import { hasSpeechEnergy } from './audioLevel.ts'
 import { localLlmModel, warmLocal } from './localAi.ts'
@@ -108,7 +108,7 @@ export interface VoiceFlowOutput {
     language: string | null
     stt: { provider: string; ms: number; attempts: Attempt[] }
     refine: { provider: string; ms: number; attempts: Attempt[] }
-    /** Ask Anything: o que o modelo decidiu e, se buscou, a busca. */
+    /** Just Ask: o que o modelo decidiu e, se buscou, a busca. */
     ask?: AskDebug
     total_ms: number
   }
@@ -231,7 +231,7 @@ export async function runVoiceFlow(input: VoiceFlowInput): Promise<VoiceFlowOutp
           audio: input.audio,
           filename: input.filename,
           mimeType: input.mimeType,
-          // A fala da tradução e o pedido do Ask Anything podem vir em qualquer idioma.
+          // A fala da tradução e o pedido do Just Ask podem vir em qualquer idioma.
           language: input.mode === 'voice_transcript' ? sttLanguage(input.parameters) : undefined,
           prompt: sttPrompt,
           signal,
@@ -404,10 +404,10 @@ async function translate(
   }
 }
 
-// ---------- Ask Anything ----------
+// ---------- Just Ask ----------
 
 /**
- * Teto de saída do Ask Anything. Até 1000 tokens cabe no limite por minuto do Qwen (D57);
+ * Teto de saída do Just Ask. Até 1000 tokens cabe no limite por minuto do Qwen (D57);
  * reescrever uma seleção grande precisa de mais, e aí o pedido vai para o próximo modelo.
  */
 export function askMaxTokens(selected: string): number {

@@ -105,7 +105,7 @@ describe('nota', () => {
   })
 })
 
-describe('decisão "anotar" no Ask Anything', () => {
+describe('decisão "anotar" no Just Ask', () => {
   it('lê pasta, título, texto e link', () => {
     const d = parseAskDecision(
       '<acao>anotar</acao><pasta>assistir depois</pasta><titulo>Como calibrar a A1</titulo><texto></texto><link>https://youtu.be/1</link>',

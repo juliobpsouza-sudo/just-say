@@ -37,5 +37,5 @@ Fica em **Configurações → Privacidade**. O botão principal também está no
 - **Estilo pessoal** (mesma tela, começa **ligado**). Um resumo curto do seu jeito de escrever, feito só com o que você ditou. Dá para ver, apagar ou desligar.
 - **Histórico.** Fica só no seu PC (`%APPDATA%\Just Say\just-say.db`), com os áudios. Você escolhe por quanto tempo guardar e pode apagar tudo no Hub → Histórico.
 - **Estatísticas.** Guardam só números (palavras, duração, hora) e o nome do app, nunca o texto, no mesmo arquivo do histórico. Apagar o histórico não zera as estatísticas. Para zerar, use o botão na página Estatísticas.
-- **Notion** (Conectores → Notion). Só manda algo para o seu Notion quando você pede com "anota", "salva" ou "guarda" no Ask Anything. O app só enxerga as páginas que você conectar a ele no Notion, e a chave fica em `server\.env`.
+- **Notion** (Conectores → Notion). Só manda algo para o seu Notion quando você pede com "anota", "salva" ou "guarda" no Just Ask. O app só enxerga as páginas que você conectar a ele no Notion, e a chave fica em `server\.env`.
 - **Para conferir o que foi lido:** em **Painel → Último ditado**, a linha cinza mostra o app, o site, o tipo de campo e quanto texto foi lido em cada ditado.

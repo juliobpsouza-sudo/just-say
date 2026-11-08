@@ -4,7 +4,7 @@ Quando o Groq não responde (sem internet, fora do ar ou no limite), o Just Say 
 - **Whisper large-v3-turbo** para transcrever (faster-whisper, em int8: ~1,1 GB de memória na placa);
 - **Qwen3.5-4B** (ou o 9B, se a placa tiver 7 GB livres) no llama.cpp para limpar o ditado.
 
-O Groq continua sendo o principal. A reserva vale só para o ditado: Ask Anything, tradução e Notion precisam de internet. Ver `app/DECISOES.md` (D94).
+O Groq continua sendo o principal. A reserva vale só para o ditado: Just Ask, tradução e Notion precisam de internet. Ver `app/DECISOES.md` (D94).
 
 Testado numa NVIDIA de 8 GB com CUDA. Sem placa NVIDIA, o Whisper roda no processador (bem mais lento).
 

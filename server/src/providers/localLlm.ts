@@ -1,5 +1,5 @@
 // Limpeza do ditado na placa de vídeo (llama.cpp + Qwen3.5), reserva do Groq (D94).
-// Só para o ditado: o Ask Anything, a tradução e o estilo pessoal pulam este provedor.
+// Só para o ditado: o Just Ask, a tradução e o estilo pessoal pulam este provedor.
 // O servidor liga o llama.cpp sozinho quando precisa (localAi.ts).
 import { config } from '../config.ts'
 import { ensureLocal, localInstalled } from '../localAi.ts'

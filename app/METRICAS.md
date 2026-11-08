@@ -24,7 +24,7 @@ Conclusão: até ~2 min de fala, o caminho atual já é rápido. O custo cresce 
   - texto visível numa página pesada (YouTube): ~0,5–1,2 s;
   - total: ~0,6–0,8 s, em paralelo com a gravação.
 
-## Ask Anything e Tradução (Fase 6)
+## Just Ask e Tradução (Fase 6)
 Medido em 2026-10-14, com a mesma fala sintética e o mesmo servidor local (Groq gratuito). É o tempo até a resposta chegar ao app, sem a entrega.
 
 | Pedido | Ação | Até a resposta | Transcrição | Modelo |

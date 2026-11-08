@@ -105,7 +105,7 @@ export function providerLabel(id: string): string {
 
 export const llmCascade = new Cascade<LlmProvider>(llmProviders, () => settings.llm)
 
-// Busca na web do Ask Anything: só os gpt-oss têm a ferramenta no Groq. Ordem fixa: o 20b
+// Busca na web do Just Ask: só os gpt-oss têm a ferramenta no Groq. Ordem fixa: o 20b
 // respondeu em ~3 s no teste e é o mais leve; o 120b fica de reserva (D54).
 const searchProviders: SearchProvider[] = [new GroqSearch('openai/gpt-oss-20b'), new GroqSearch('openai/gpt-oss-120b')]
 const searchSettings = searchProviders.map((p) => ({ id: p.id, enabled: true }))

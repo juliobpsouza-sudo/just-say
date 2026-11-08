@@ -20,7 +20,7 @@ interface Use {
   say: string
 }
 
-const MODE_LABEL: Record<Mode, string> = { dictation: 'Ditado', askAnything: 'Ask Anything', translation: 'Tradução' }
+const MODE_LABEL: Record<Mode, string> = { dictation: 'Ditado', askAnything: 'Just Ask', translation: 'Tradução' }
 
 // ---------- logos (desenhos simples, sem arquivos de marca) ----------
 

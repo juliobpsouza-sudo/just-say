@@ -64,7 +64,7 @@ const parse = <T,>(s: string | null): T | null => {
 /**
  * Linha do histórico → evento. Só ditados concluídos contam.
  * - Ditado e tradução: as palavras do texto que foi entregue.
- * - Ask Anything: as palavras do pedido falado (a resposta foi a IA que escreveu).
+ * - Just Ask: as palavras do pedido falado (a resposta foi a IA que escreveu).
  */
 export function statsEventFrom(row: HistoryRow): StatsEvent | null {
   if (row.status !== 'completed') return null

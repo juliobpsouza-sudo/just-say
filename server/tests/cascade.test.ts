@@ -92,7 +92,7 @@ describe('cascata de provedores', () => {
     expect((await run()).value).toBe('a')
   })
 
-  it('pula os provedores marcados por skip (ex.: o sem refino no Ask Anything)', async () => {
+  it('pula os provedores marcados por skip (ex.: o sem refino no Just Ask)', async () => {
     const { run } = setup([fake('a'), fake('none')])
     expect((await run((p) => p.id === 'a')).value).toBe('none')
     await expect(run(() => true)).rejects.toBeInstanceOf(AllProvidersFailedError)

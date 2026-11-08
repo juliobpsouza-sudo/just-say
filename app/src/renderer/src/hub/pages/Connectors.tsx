@@ -1,4 +1,4 @@
-// Conectores (D77): os serviços que o Ask Anything pode usar. Hoje o Notion; a Google Agenda
+// Conectores (D77): os serviços que o Just Ask pode usar. Hoje o Notion; a Google Agenda
 // é a próxima meta e aparece como "Em breve".
 import { ConnectorCard } from '../components/ConnectorCard'
 import { NotionSettings } from '../components/NotionSettings'
@@ -16,7 +16,7 @@ export function Connectors() {
     <section>
       <h1>Conectores</h1>
       <p className="muted context-line">
-        Serviços que o <b>Ask Anything</b> pode usar por voz. As chaves ficam só neste PC, no <code>server\.env</code>, nunca
+        Serviços que o <b>Just Ask</b> pode usar por voz. As chaves ficam só neste PC, no <code>server\.env</code>, nunca
         no app nem na nuvem.
       </p>
 

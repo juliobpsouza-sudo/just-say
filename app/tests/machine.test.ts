@@ -159,7 +159,7 @@ describe('máquina de gravação', () => {
     expect(m.state()).toBe('recording_active.translationModeHandsFree')
   })
 
-  it('Ask Anything usa initializingForHandsFree', async () => {
+  it('Just Ask usa initializingForHandsFree', async () => {
     const m = start()
     m.down('askAnything')
     expect(m.state()).toBe('initializingForHandsFree')

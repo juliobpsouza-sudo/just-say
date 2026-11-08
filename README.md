@@ -8,7 +8,7 @@
   <a href="../../releases/latest"><b>Baixar a versão mais nova</b></a>
 </p>
 
-Ditado por voz para Windows: você toca um atalho, fala, e o texto entra limpo e pontuado no campo onde o cursor está, em qualquer programa. Também responde perguntas (Ask Anything), traduz enquanto você fala e anota no Notion.
+Ditado por voz para Windows: você toca um atalho, fala, e o texto entra limpo e pontuado no campo onde o cursor está, em qualquer programa. Também responde perguntas (Just Ask), traduz enquanto você fala e anota no Notion.
 
 ## O que ele faz
 
@@ -21,7 +21,7 @@ E ele não só transcreve, ele **reescreve**:
 - entende quando você se corrige no meio: *"amanhã às três, não, às quatro"* vira **"Amanhã às quatro."**;
 - lê o que está na tela para acertar nomes e o tom da conversa.
 
-### 💬 Ask Anything: pergunte ou peça qualquer coisa
+### 💬 Just Ask: pergunte ou peça qualquer coisa
 Toque **AltGr + Espaço** e fale um pedido. O app decide sozinho o que fazer:
 - **Escrever por você:** *"escreve um e-mail pedindo o orçamento"* → o e-mail pronto é colado no campo.
 - **Editar o que está selecionado:** selecione um texto e diga *"organiza isso em tópicos"* ou *"deixa mais formal"*.
@@ -91,7 +91,7 @@ O app precisa de algumas coisas do Windows que o Node/Electron não alcança soz
 | DLL | O que faz |
 | --- | --- |
 | `KeyboardHelper.dll` | Ouve o teclado e o mouse do Windows inteiro para reconhecer o seu atalho (ex.: AltGr) em qualquer programa. Só repassa ao app quais teclas estão apertadas; não guarda nem envia o que você digita. Engole apenas as teclas do atalho reconhecido. |
-| `InputHelper.dll` | Cola o texto onde está o cursor: guarda o que havia no clipboard, coloca o texto, aperta Ctrl+V e devolve o clipboard como estava. Também lê o texto selecionado (para o Ask Anything e a tradução). |
+| `InputHelper.dll` | Cola o texto onde está o cursor: guarda o que havia no clipboard, coloca o texto, aperta Ctrl+V e devolve o clipboard como estava. Também lê o texto selecionado (para o Just Ask e a tradução). |
 | `ContextHelper.dll` | Lê, pela acessibilidade do Windows (UI Automation), o app em foco, o endereço do site e o texto ao redor do cursor. Isso ajuda a IA a acertar nomes e o tom. Apps de senha, conversas privadas e terminais ficam de fora (ver `app/src/shared/contextLists.ts`). |
 | `UtilHelper.dll` | Áudio e aparelho: silencia os outros programas enquanto você fala (e devolve o som depois), lista os microfones, sabe se a tampa do notebook está fechada e gera um identificador local do PC. |
 

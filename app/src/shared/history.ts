@@ -53,7 +53,7 @@ export interface HistoryItem {
 }
 
 export interface HistoryQuery {
-  /** Busca no texto final, na transcrição e no pedido do Ask Anything. */
+  /** Busca no texto final, na transcrição e no pedido do Just Ask. */
   text?: string
   mode?: VoiceFlowMode | null
   /** Paginação: itens criados antes deste ISO. */

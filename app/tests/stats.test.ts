@@ -78,7 +78,7 @@ describe('evento a partir do histórico', () => {
     expect(e.local_day).toBe(localDay(new Date('2026-10-18T13:00:00.000Z')))
   })
 
-  it('Ask Anything conta o pedido falado, não a resposta', () => {
+  it('Just Ask conta o pedido falado, não a resposta', () => {
     const r = row(
       req('b', { mode: 'voice_command' }),
       ok('Uma resposta bem longa com muitas e muitas palavras aqui.', 'o que é isso', {
@@ -150,7 +150,7 @@ describe('resumo', () => {
     expect(s.totals.pages).toBe(2.6)
   })
 
-  it('separa os modos e mede a velocidade sem o Ask Anything', () => {
+  it('separa os modos e mede a velocidade sem o Just Ask', () => {
     expect(s.modes).toEqual({ transcript: 2, ask: 1, translation: 1, webSearches: 1 })
     expect(s.speakingWpm).toBe(Math.round(640 / (30 / 60)))
   })

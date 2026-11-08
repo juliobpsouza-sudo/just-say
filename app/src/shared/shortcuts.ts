@@ -27,7 +27,7 @@ export const DEFAULT_SHORTCUTS: ShortcutBindings = {
 
 export const FEATURE_LABELS: Record<ShortcutFeature, { title: string; hint: string }> = {
   dictation: { title: 'Ditado', hint: 'Toque para começar a falar e toque de novo para inserir o texto.' },
-  askAnything: { title: 'Ask Anything', hint: 'Toque, faça uma pergunta ou peça uma edição do texto selecionado.' },
+  askAnything: { title: 'Just Ask', hint: 'Toque, faça uma pergunta ou peça uma edição do texto selecionado.' },
   translation: { title: 'Tradução', hint: 'Toque, fale num idioma e receba o texto traduzido.' },
   pasteLastTranscript: { title: 'Colar a última transcrição', hint: 'Insere de novo o último texto.' },
   cancel: { title: 'Cancelar', hint: 'Só funciona enquanto grava. Descarta a gravação.' },

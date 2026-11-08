@@ -1,4 +1,4 @@
-// Integração com o Notion (D72): o Ask Anything anota vídeos, páginas e ideias numa "pasta"
+// Integração com o Notion (D72): o Just Ask anota vídeos, páginas e ideias numa "pasta"
 // do Notion da pessoa. API oficial, versão 2026-03-11, sem SDK (só fetch).
 // - Pasta = página ou banco de dados (data source) que a pessoa conectou à integração.
 // - Banco de dados: cada nota vira uma linha (título, link e data, se houver essas colunas).

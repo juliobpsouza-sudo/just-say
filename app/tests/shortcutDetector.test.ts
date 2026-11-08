@@ -27,7 +27,7 @@ describe('detector de atalho', () => {
     expect(run([['RightAlt'], []]).types).toEqual(['PRIMARY_KEY.DOWN:dictation', 'PRIMARY_KEY.UP:dictation'])
   })
 
-  it('RightAlt e depois Space vira Ask Anything', () => {
+  it('RightAlt e depois Space vira Just Ask', () => {
     expect(run([['RightAlt'], ['RightAlt', 'Space'], ['RightAlt'], []]).types).toEqual([
       'PRIMARY_KEY.DOWN:dictation',
       'SWITCH_MODE:askAnything',

@@ -1,4 +1,4 @@
-// Markdown das respostas do Ask Anything: HTML para colar rico e para o
+// Markdown das respostas do Just Ask: HTML para colar rico e para o
 // cartão, e texto puro para os apps que só aceitam texto.
 // O HTML daqui ainda passa pelo DOMPurify no renderer antes de ser usado.
 import MarkdownIt from 'markdown-it'

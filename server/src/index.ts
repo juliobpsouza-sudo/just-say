@@ -45,7 +45,7 @@ const fail = (reply: FastifyReply, status: number, code: string, message: string
 
 app.get('/health', async () => ({
   ok: true,
-  version: '0.1.1',
+  version: '0.1.2',
   groq_configured: Boolean(config.groqApiKey),
 }))
 

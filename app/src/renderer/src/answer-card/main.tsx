@@ -1,4 +1,4 @@
-// Cartão de resposta do Ask Anything (entrega "reply"): pergunta, resposta em
+// Cartão de resposta do Just Ask (entrega "reply"): pergunta, resposta em
 // markdown e as fontes da busca. Links abrem no navegador pelo main (só http/https).
 import { useEffect, useMemo, useState, type MouseEvent } from 'react'
 import { createRoot } from 'react-dom/client'
