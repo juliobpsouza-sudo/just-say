@@ -1122,3 +1122,10 @@ Testados em 2026-10-13 com quatro falas: muletas + autocorreção + enumeração
 - **Pedido** (08/11/2026): um nome próprio, que combine com "Just Say": *Just Say* para ditar, *Just Ask* para pedir.
 - **O que mudou:** todos os textos das telas (barra, bandeja, Hub, Histórico, Estatísticas, passo a passo, Utilitários, Conectores), comentários, testes e documentos.
 - **O que não mudou:** os nomes internos (`askAnything`, `ask_anything`, `voice_command`) e as chaves das configurações. Assim os atalhos e o histórico de quem já usa continuam iguais.
+
+### D98. Todo resultado de voz também fica no Ctrl+C
+- **Pedido** (08/11/2026): todo ditado, tradução ou texto colado pelo Just Ask fica no clipboard depois de colar, mesmo quando a colagem deu certo. Sem aviso.
+- **Como** (`keepInClipboard`, `src/main/insertion.ts`): 300 ms depois do Ctrl+V, o main grava o texto no clipboard (`clipboard.writeText`; no texto rico, HTML + texto). A InputHelper só devolve o clipboard antigo se ele não mudou desde a colagem (D23), então essa gravação cancela a restauração sem mexer na DLL.
+- **Só nos resultados de voz** (`remember: true`). O "Colar última transcrição" e as leituras de seleção não mudam.
+- **Efeito:** o conteúdo que estava no clipboard antes do ditado não volta mais. O texto ditado passa a aparecer no histórico do Win+V, como uma cópia normal.
+- **Dá para desligar:** Configurações → Privacidade → "Deixar o texto no Ctrl+C" (`keepTranscriptInClipboard`, ligado por padrão). Desligado, volta o comportamento anterior, mais privado: o clipboard antigo é devolvido e o texto ditado não entra no histórico do Win+V.

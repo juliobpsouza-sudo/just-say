@@ -50,6 +50,8 @@ export interface AppSettings {
   statsTypingWpm: number
   /** Mostra no Painel o monitor ao vivo e as transições, ferramentas de teste. */
   showTechnicalMonitor: boolean
+  /** Depois de colar, deixar o texto ditado no Ctrl+C (D98). Desligado: volta o clipboard antigo e o texto fica fora do Win+V. */
+  keepTranscriptInClipboard: boolean
 }
 
 const isStringList = (v: unknown) =>
@@ -75,6 +77,7 @@ export const EDITABLE_SETTINGS = {
   typingHintEnabled: (v: unknown) => typeof v === 'boolean',
   appearancePreference: (v: unknown) => v === null || v === 'light' || v === 'dark',
   showTechnicalMonitor: (v: unknown) => typeof v === 'boolean',
+  keepTranscriptInClipboard: (v: unknown) => typeof v === 'boolean',
   launchAtSystemStartup: (v: unknown) => typeof v === 'boolean',
   statsTypingWpm: (v: unknown) => Number.isInteger(v) && (v as number) >= MIN_TYPING_WPM && (v as number) <= MAX_TYPING_WPM,
 } satisfies Partial<Record<keyof AppSettings, (v: unknown) => boolean>>
@@ -112,4 +115,5 @@ export const DEFAULT_SETTINGS: AppSettings = {
   typingHintLastShownAt: null,
   statsTypingWpm: DEFAULT_TYPING_WPM,
   showTechnicalMonitor: false,
+  keepTranscriptInClipboard: true,
 }

@@ -2,6 +2,11 @@
 
 O que mudou em cada versão do Just Say. A numeração segue `MAIOR.MENOR.CORREÇÃO`: correções sobem o último número, novidades o do meio. Enquanto o primeiro número for `0`, o app ainda está em evolução rápida.
 
+## v0.1.3 — 2026-11-08
+
+- **O texto ditado também fica no Ctrl+C.** Depois de colar, tudo o que você dita (ditado, tradução e o que o Just Ask cola) continua copiado, para colar de novo onde quiser. Sem aviso.
+- **Dá para escolher:** em Configurações → Privacidade → "Deixar o texto no Ctrl+C". Vem ligado. Desligado, volta o modo mais privado: o que estava copiado antes é devolvido e o texto ditado não aparece no histórico do Win+V (D98).
+
 ## v0.1.2 — 2026-11-08
 
 - **"Ask Anything" agora se chama "Just Ask".** Um nome próprio, que combina com o do app: *Just Say* para ditar, *Just Ask* para pedir. Muda só o nome nas telas; o atalho (AltGr + Espaço), as configurações e o histórico continuam iguais (D97).

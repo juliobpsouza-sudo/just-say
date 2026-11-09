@@ -95,6 +95,24 @@ export function PrivacySettings({ settings, onChange }: { settings: AppSettings;
           <span>{settings.readScreenContext ? 'ligado' : 'desligado'}</span>
         </label>
       </div>
+      <div className="item">
+        <div className="item-text">
+          <div className="item-title">Deixar o texto no Ctrl+C</div>
+          <div className="muted small">
+            Ligado, tudo o que você dita também fica copiado depois de colar, para colar de novo onde quiser. Ele aparece no
+            histórico do Win+V, como uma cópia normal. Desligado, o que estava copiado antes volta, e o texto ditado não fica
+            no histórico do Win+V.
+          </div>
+        </div>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={settings.keepTranscriptInClipboard}
+            onChange={(e) => void set('keepTranscriptInClipboard', e.target.checked)}
+          />
+          <span>{settings.keepTranscriptInClipboard ? 'ligado' : 'desligado'}</span>
+        </label>
+      </div>
       <ListEditor
         title="Apps onde nunca leio a tela"
         hint="Pelo nome do programa (o .exe). Gerenciadores de senha, conversas privadas, terminais, acesso remoto e Office vêm na lista."

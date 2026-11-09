@@ -1,7 +1,9 @@
 // Inserção de texto no app em foco: uma de cada vez (trava de reentrância) e 500 ms de
 // espera depois de colar ("cuidados do JS").
 import { setTimeout as sleep } from 'node:timers/promises'
+import { clipboard, ClipboardItem } from 'electron'
 import { TIMING } from '../shared/constants'
+import { settingsStore } from './settings'
 import * as input from './native/inputHelper'
 
 /** Executáveis de terminal: lá não se simula Ctrl+C. */
@@ -28,10 +30,25 @@ function enqueue<T>(job: () => Promise<T>): Promise<T> {
   return run
 }
 
+/**
+ * Todo resultado de voz também fica no Ctrl+C (D98), em silêncio. A colagem usa o clipboard
+ * e agenda a volta do conteúdo antigo para 500 ms depois; a InputHelper não faz essa volta se
+ * o clipboard mudou nesse meio-tempo. Então gravamos o texto 300 ms depois de colar: dá tempo
+ * de o app de destino ler o Ctrl+V e cancela a restauração. A próxima colagem só começa depois
+ * dos 500 ms de espera da fila, então esta gravação nunca atropela outra.
+ */
+function keepInClipboard(write: () => Promise<void>): void {
+  if (!settingsStore().get('keepTranscriptInClipboard')) return
+  setTimeout(() => {
+    write().catch((err) => console.error('[inserir] não deu para deixar o texto no Ctrl+C', err))
+  }, 300)
+}
+
 export function insertText(text: string, opts: { remember?: boolean } = {}): Promise<InsertResult> {
   if (opts.remember) lastTranscript = text
   return enqueue(async () => {
     const code = await input.insertText(text)
+    if (opts.remember) keepInClipboard(() => clipboard.writeText(text))
     return { ok: code === 1, code }
   })
 }
@@ -46,6 +63,7 @@ export function insertRichText(
   if (opts.remember) lastTranscript = text
   return enqueue(async () => {
     const code = await input.insertRichText(html, text, markdown)
+    if (opts.remember) keepInClipboard(() => clipboard.write([new ClipboardItem({ 'text/plain': text, 'text/html': html })]))
     return { ok: code === 1, code }
   })
 }
