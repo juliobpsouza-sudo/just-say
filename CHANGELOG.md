@@ -2,6 +2,11 @@
 
 O que mudou em cada versão do Just Say. A numeração segue `MAIOR.MENOR.CORREÇÃO`: correções sobem o último número, novidades o do meio. Enquanto o primeiro número for `0`, o app ainda está em evolução rápida.
 
+## v0.1.4 — 2026-11-08
+
+- **Botão "Atualizar agora".** Quando sai uma versão nova, o Painel avisa. Um clique baixa só o código novo (cerca de 1 MB), reaproveita as bibliotecas que não mudaram, fecha o app e abre já atualizado. Se algo falhar, ele volta sozinho para a versão anterior, sem perder nada. Também em Configurações → Atualizações, com o botão "Procurar atualização" (D99).
+- **Correção no passo a passo de atualizar à mão (README):** o dicionário, o estilo de escrita e as escolhas de modelos ficam em `server\data`, dentro da pasta do app; quem atualiza à mão precisa copiar essa pasta.
+
 ## v0.1.3 — 2026-11-08
 
 - **O texto ditado também fica no Ctrl+C.** Depois de colar, tudo o que você dita (ditado, tradução e o que o Just Ask cola) continua copiado, para colar de novo onde quiser. Sem aviso.

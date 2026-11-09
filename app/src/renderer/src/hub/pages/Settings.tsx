@@ -13,6 +13,7 @@ import {
   type ShortcutFeature,
 } from '../../../../shared/shortcuts'
 import { AudioSettings } from '../components/AudioSettings'
+import { UpdateCard } from '../components/UpdateCard'
 import { GroqKeySettings } from '../components/GroqKeySettings'
 import { Keys } from '../components/Keys'
 import { ModelsSettings } from '../components/ModelsSettings'
@@ -51,6 +52,8 @@ export function Settings() {
   return (
     <section>
       <h1>Configurações</h1>
+      <h2>Atualizações</h2>
+      <UpdateCard />
       <h2 id="settings-groq-key">Chave do Groq</h2>
       <GroqKeySettings />
 

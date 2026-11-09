@@ -54,13 +54,18 @@ O app sobe o servidor local sozinho (`server/`, porta 8787, só aceita pedidos d
 
 ## Versões e atualização
 
-Cada versão tem um número (`v0.1.0`, `v0.2.0`…) e uma nota do que mudou, em [Releases](../../releases) e no [CHANGELOG](CHANGELOG.md). O app não se atualiza sozinho. Para atualizar:
+Cada versão tem um número (`v0.1.0`, `v0.2.0`…) e uma nota do que mudou, em [Releases](../../releases) e no [CHANGELOG](CHANGELOG.md).
+
+**Atualizar pelo app (a partir da v0.1.4):** quando sai uma versão nova, aparece no **Painel** (e em **Configurações → Atualizações**) o botão **Atualizar agora**. Ele baixa só o código novo (cerca de 1 MB), reaproveita as bibliotecas que já estão no PC (só baixa de novo as que mudaram), fecha o Just Say e abre já atualizado, na mesma pasta. Se algo der errado, ele volta sozinho para a versão anterior. A versão anterior fica guardada em `<pasta>.anterior`, ao lado da sua, até a próxima atualização.
+
+**Atualizar à mão** (ou vindo da v0.1.3 ou anterior, que ainda não têm o botão):
 
 1. Feche o Just Say pelo ícone ao lado do relógio (**Sair**).
 2. Baixe e extraia a versão nova numa pasta nova.
-3. Rode o **`Instalar.cmd`** dela e abra pelo **`Abrir Just Say.cmd`**. A pasta antiga pode ser apagada.
+3. Copie a pasta **`server\data`** da instalação antiga para a nova: é lá que ficam o dicionário, o estilo de escrita e as escolhas de modelos. Se você usa um `server\.env`, copie também.
+4. Rode o **`Instalar.cmd`** da pasta nova e abra pelo **`Abrir Just Say.cmd`**. Depois, a pasta antiga pode ser apagada.
 
-As configurações, a chave do Groq, o dicionário e o histórico ficam em `%APPDATA%\Just Say`, fora da pasta do app, então continuam lá depois de atualizar.
+O resto (configurações do app, chave do Groq, histórico e gravações) fica em `%APPDATA%\Just Say`, fora da pasta do app, e continua lá de qualquer jeito.
 
 Os `.cmd` usam o Prompt de Comando de propósito: num Windows novo, o PowerShell bloqueia o `npm` ("a execução de scripts foi desabilitada"). Quem preferir o terminal:
 

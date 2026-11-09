@@ -51,6 +51,7 @@ import { applyRetention, closeHistory, setHistoryChangedListener } from './histo
 import { registerPhase7Ipc } from './ipcPhase7'
 import { onKeySnapshot, refreshStyleIfDue, showBarNotice, trackInsertion } from './learning'
 import { onboardingState } from './onboarding'
+import { applyUpdate, checkForUpdate, initUpdater, updateState } from './updater'
 
 // Antes de tudo: define a pasta userData como %APPDATA%\Just Say.
 // JUST_SAY_PROFILE: uma segunda cópia com pasta de dados própria, para testar ao lado (D95).
@@ -292,6 +293,9 @@ function registerIpc(): void {
   ipcMain.on(IPC.copyCardCopy, () => clipboard.writeText(copyCardText()))
   ipcMain.on(IPC.copyCardClose, () => closeCopyCard())
   // ---------- chave do Groq (D95): o renderer nunca recebe a chave, só o status ----------
+  ipcMain.handle(IPC.updateGet, () => updateState())
+  ipcMain.handle(IPC.updateCheck, () => checkForUpdate(true))
+  ipcMain.handle(IPC.updateApply, () => applyUpdate(() => app.quit()))
   ipcMain.handle(IPC.groqKeyStatus, () => groqKeyStatus())
   ipcMain.handle(IPC.groqKeyTest, (_e, key: unknown) => testGroqKey(String(key ?? '')))
   ipcMain.handle(IPC.groqKeySave, (_e, key: unknown) => saveGroqKey(String(key ?? '')))
@@ -458,6 +462,11 @@ function bootstrap(): void {
   allowMicrophoneForOwnPages()
   lockNavigation()
   registerIpc()
+  initUpdater(
+    (s) => broadcast(IPC.updateChanged, s),
+    (line) => console.log(line),
+    () => app.quit(),
+  )
   applyLoginItem()
   startKeyboard()
   const bar = createFloatingBar()

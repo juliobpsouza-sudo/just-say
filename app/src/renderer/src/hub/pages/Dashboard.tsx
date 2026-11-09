@@ -10,6 +10,7 @@ import { LastDictation } from '../components/LastDictation'
 import { UsageCard } from '../components/UsageCard'
 import { PopularUses } from '../components/PopularUses'
 import { StatsStrip } from './Stats'
+import { UpdateCard } from '../components/UpdateCard'
 
 const MAX_ROWS = 60
 
@@ -60,6 +61,7 @@ export function Dashboard() {
   return (
     <section>
       <h1>Painel</h1>
+      <UpdateCard compact />
       <StatsStrip />
 
       <h2>Uso gratuito</h2>

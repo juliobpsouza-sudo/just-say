@@ -55,6 +55,11 @@ export const IPC = {
   groqKeyTest: 'groq-key:test',
   groqKeySave: 'groq-key:save',
   groqKeyRemove: 'groq-key:remove',
+  // Atualização pelo botão (D99)
+  updateGet: 'update:get',
+  updateCheck: 'update:check',
+  updateApply: 'update:apply',
+  updateChanged: 'update:changed',
   /** Copia um texto pelo main (o renderer não tem permissão de área de transferência, D91). */
   clipboardWriteText: 'clipboard:write-text',
   /** Só em desenvolvimento: mostra o cartão sem colar nada (teste). */
