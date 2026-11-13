@@ -4,11 +4,11 @@
 
 <h1 align="center">Just Say</h1>
 
+https://github.com/user-attachments/assets/882ac5ab-85d1-4862-bf72-17661edb843a
+
 <p align="center">
   <a href="../../releases/latest"><b>Baixar a versão mais nova</b></a>
 </p>
-
-https://github.com/user-attachments/assets/882ac5ab-85d1-4862-bf72-17661edb843a
 
 Ditado por voz para Windows: você toca um atalho, fala, e o texto entra limpo e pontuado no campo onde o cursor está, em qualquer programa. Também responde perguntas (Just Ask), traduz enquanto você fala e anota no Notion.
 
